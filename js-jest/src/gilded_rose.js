@@ -9,8 +9,16 @@ class Item {
 const isNormal = (itemTest) => {
   if (itemTest.name != 'Aged Brie' && itemTest.name != 'Backstage passes to a TAFKAL80ETC concert' && itemTest.name != 'Sulfuras, Hand of Ragnaros') {
     if (itemTest.quality > 0) {
+      if(!isConjured(itemTest)){
         return true;
+      }
     }
+  }
+}
+
+const isConjured = (itemTest) => {
+  if(itemTest.name.includes("Conjured")){
+    return true;
   }
 }
 
@@ -59,7 +67,10 @@ class Shop {
       //normal items decrease quality by 1
       if(isNormal(this.items[i])){
         this.items[i].quality -= 1;
-      } else { //specialty items increase quality depending on sellIn
+      } else if(isConjured(this.items[i])){
+        this.items[i].quality -= 2;
+      }
+      else { //specialty items increase quality depending on sellIn
         specialQualityIncrease(this.items[i]);
       }
 

@@ -76,4 +76,13 @@ describe("Gilded Rose Pin Down Tests", () => {
 
     expect(items[0].quality).toBe(21);
   });
+
+  test('"Conjured" items degrade in Quality twice as fast as normal items', () => {
+    let conjured = new Item("Conjured Mana Cake", 3, 6)
+    const gildedRose = new Shop([conjured]);
+
+    const items = gildedRose.updateQuality();
+
+    expect(items[0].quality).toBe(4);
+  })
 });
